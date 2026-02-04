@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Nandu ❤️</title>
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #cdb4db, #ffc8dd);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .container {
+    text-align: center;
+    padding: 20px;
+    z-index: 2;
+  }
+
+  /* Reveal Button */
+  #revealBtn {
+    font-size: 26px;
+    padding: 20px 38px;
+    background: #ff4d6d;
+    color: white;
+    border-radius: 30px;
+    cursor: pointer;
+    animation: pulse 1.8s infinite;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+
+  .questionText {
+    font-size: 36px;
+    font-weight: bold;
+    color: #ff1e56;
+    animation: fadeZoom 1.8s ease-in-out infinite alternate;
+    margin-bottom: 25px;
+  }
+
+  @keyframes fadeZoom {
+    from { opacity: 0.7; transform: scale(1); }
+    to { opacity: 1; transform: scale(1.08); }
+  }
+
+  button {
+    padding: 14px 32px;
+    font-size: 18px;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    margin: 10px;
+  }
+
+  #yesBtn {
+    background-color: #ff1e56;
+    color: white;
+  }
+
+  #noBtn {
+    background-color: #6c757d;
+    color: white;
+    position: absolute;
+  }
+
+  /* Hearts */
+  .heart {
+    position: fixed;
+    animation: float 6s linear infinite;
+    text-shadow: 0 0 15px #c1121f, 0 0 40px #ff0000;
+    z-index: 1;
+  }
+
+  @keyframes float {
+    from {
+      transform: translateY(100vh) scale(1);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(-15vh) scale(1.4);
+      opacity: 0;
+    }
+  }
+
+  /* Celebration Text */
+  .yesText {
+    font-size: 64px;
+    font-weight: 900;
+    color: #ff0000;
+    text-shadow:
+      0 0 15px #ff1e56,
+      0 0 30px #ff4d6d,
+      0 0 60px #ff0000;
+    animation: celebrate 1.2s ease-out forwards,
+               glowPulse 1.5s infinite;
+  }
+
+  @keyframes celebrate {
+    0% { transform: scale(0.2) rotate(-10deg); opacity: 0; }
+    60% { transform: scale(1.3) rotate(5deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0); }
+  }
+
+  @keyframes glowPulse {
+    0% { text-shadow: 0 0 10px #ff1e56; }
+    50% { text-shadow: 0 0 45px #ff0000; }
+    100% { text-shadow: 0 0 10px #ff1e56; }
+  }
+
+  /* FIRECRACKER SPARKS */
+  .spark {
+    position: fixed;
+    top: 40px;
+    width: 8px;
+    height: 8px;
+    background: radial-gradient(circle, #fff, #ff0040);
+    border-radius: 50%;
+    animation: spark 1.2s ease-out forwards;
+    z-index: 3;
+  }
+
+  @keyframes spark {
+    0% { transform: scale(0); opacity: 1; }
+    50% { transform: scale(2); }
+    100% { transform: translateY(40px) scale(0.5); opacity: 0; }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- Start -->
+<div class="container" id="start">
+  <div id="revealBtn" onclick="startSurprise()">💌 Click to Reveal 💌</div>
+</div>
+
+<!-- Question -->
+<div class="container" id="question" style="display:none;">
+  <div class="questionText">
+    Nandu ❤️<br>Will you be my Valentine?
+  </div>
+  <button id="yesBtn" onclick="showLove()">Yes 💕</button>
+  <button id="noBtn" onmouseover="moveNo()" ontouchstart="moveNo()">No 😜</button>
+</div>
+
+<!-- Final -->
+<div class="container" id="love" style="display:none;">
+  <div class="yesText">I knew you’d say YES ❤️</div>
+</div>
+
+<script>
+  function startSurprise() {
+    start.style.display = "none";
+    question.style.display = "block";
+  }
+
+  function moveNo() {
+    noBtn.style.left = Math.random() * (window.innerWidth - noBtn.offsetWidth) + "px";
+    noBtn.style.top = Math.random() * (window.innerHeight - noBtn.offsetHeight) + "px";
+  }
+
+  function createHeart(x = Math.random() * window.innerWidth) {
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.innerHTML = "❤️";
+    h.style.left = x + "px";
+    h.style.fontSize = Math.random() * 35 + 55 + "px";
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 6000);
+  }
+
+  function heartExplosion() {
+    const cx = window.innerWidth / 2;
+    for (let i = 0; i < 30; i++) {
+      setTimeout(() => createHeart(cx + Math.random() * 300 - 150), i * 40);
+    }
+  }
+
+  function sparkFireworks() {
+    for (let i = 0; i < 20; i++) {
+      setTimeout(() => {
+        const s = document.createElement("div");
+        s.className = "spark";
+        s.style.left = Math.random() * window.innerWidth + "px";
+        document.body.appendChild(s);
+        setTimeout(() => s.remove(), 1200);
+      }, i * 80);
+    }
+  }
+
+  function showLove() {
+    question.style.display = "none";
+    love.style.display = "block";
+
+    heartExplosion();
+    sparkFireworks();
+
+    setInterval(createHeart, 220);
+    setInterval(sparkFireworks, 2500);
+  }
+</script>
+
+</body>
+</html>
